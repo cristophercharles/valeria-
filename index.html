@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Valeria 💖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #c2185b;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 8px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        button {
+            background-color: #c2185b;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #a3154a;
+        }
+
+        .tarjeta {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.75);
+            border-radius: 15px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .oculto {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🌸 Programa Valeria 🌸</h1>
+<p>Escribe la palabra mágica</p>
+
+<input type="text" id="palabra" placeholder="Palabra mágica">
+<br>
+<button onclick="verificar()">Entrar</button>
+
+<div id="mensaje"></div>
+
+<div id="contenido" class="oculto">
+
+    <!-- MENSAJES BONITOS -->
+    <div class="tarjeta">
+        ✨ Me gustas mucho 💕<br>
+        ✨ Eres muy guapa 🌷<br>
+        ✨ Me encantas 😍<br>
+        ✨ Me fascinas 💖
+    </div>
+
+    <!-- MENSAJE DEL DIA -->
+    <div class="tarjeta">
+        <h3>🌟 Mensaje del día</h3>
+        <p id="mensajeDia"></p>
+        <hr>
+        📝 Recuerda estudiar para el examen del ITLA 📚<br>
+        📝 Recuerda comer bien 🍎<br>
+        📝 No olvides descansar 💕
+    </div>
+
+    <!-- CARTA -->
+    <div class="tarjeta">
+        <h3>💌 Una carta para ti</h3>
+        <button onclick="mostrarCarta()">Leer la carta</button>
+        <div id="carta" class="oculto">
+            <p>
+                Al principio, cuando te conocí, hasta pensé que eras un perfil falso
+                de lo hermosa que eres. Pero no fue solo esa belleza lo que más me atrajo,
+                fue la forma en que conectamos, cómo conversábamos.
+                <br><br>
+                Eres demasiado interesante, hablar contigo me da mucha paz y eso me gusta.
+                Espero que lo nuestro dure más de lo que podamos imaginar.
+            </p>
+        </div>
+    </div>
+
+    <!-- COMO TE SIENTES HOY -->
+    <div class="tarjeta">
+        <h3>🌷 ¿Cómo te sientes hoy?</h3>
+        <div id="opcionesSentimiento"></div>
+        <p id="respuestaSentimiento"></p>
+    </div>
+
+    <!-- SECRETO -->
+    <button onclick="mostrarSecreto()">Ver secreto 💌</button>
+    <div id="secreto" class="tarjeta oculto">
+        Desde que te conocí no dejo de pensar en ti.<br>
+        Me interesas muchísimo.<br>
+        Eres alguien muy especial para mí 💖
+    </div>
+
+</div>
+
+<script>
+function verificar() {
+    const palabra = document.getElementById("palabra").value.toLowerCase().trim();
+
+    if (palabra === "valeria") {
+        document.getElementById("mensaje").innerHTML = "✨ Bienvenida ✨";
+        document.getElementById("contenido").style.display = "block";
+        mensajeDelDia();
+        generarSentimientos();
+    } else {
+        document.getElementById("mensaje").innerHTML = "❌ Palabra mágica incorrecta";
+    }
+}
+
+function mostrarCarta() {
+    document.getElementById("carta").style.display = "block";
+}
+
+function mostrarSecreto() {
+    document.getElementById("secreto").style.display = "block";
+}
+
+function mensajeDelDia() {
+    const mensajes = [
+        "Hoy quiero recordarte lo increíble que eres 💕",
+        "Espero que tu día sea tan bonito como tú 🌸",
+        "No olvides que alguien piensa en ti 💖",
+        "Tu sonrisa puede cambiar un día entero 😊"
+    ];
+    document.getElementById("mensajeDia").innerHTML =
+        mensajes[Math.floor(Math.random() * mensajes.length)];
+}
+
+function generarSentimientos() {
+    const sentimientos = [
+        { texto: "😊 Feliz", respuesta: "Me encanta saber que hoy te sientes feliz 💕" },
+        { texto: "💭 Pensativa", respuesta: "se que estas pensando en mi  🌷" },
+        { texto: "😡 Enojada", respuesta: "Respira, todo va a estar bien. lo bueno es que no es conmigo jajja 💖" },
+        { texto: "😢 Triste", respuesta: "Aquí tienes un abrazo grande 🤍" },
+        { texto: "🥶 Con frío", respuesta: "Ojalá pudiera darte abrazo ahora mismo 🧣" },
+        { texto: "😴 Cansada", respuesta: "Descansa, te lo mereces besitos " },
+        { texto: "💖 Especial", respuesta: "Lo eres hoy y siempre ✨" }
+    ];
+
+    const seleccionados = sentimientos.sort(() => 0.5 - Math.random()).slice(0, 3);
+    const contenedor = document.getElementById("opcionesSentimiento");
+    contenedor.innerHTML = "";
+
+    seleccionados.forEach(s => {
+        const btn = document.createElement("button");
+        btn.innerText = s.texto;
+        btn.onclick = () => {
+            document.getElementById("respuestaSentimiento").innerHTML = s.respuesta;
+        };
+        contenedor.appendChild(btn);
+    });
+}
+</script>
+
+</body>
+</html>
